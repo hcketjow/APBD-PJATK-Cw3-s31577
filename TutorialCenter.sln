@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorialCenter", "TutorialCenter\TutorialCenter.csproj", "{CBD588FC-46BB-47B1-8E9B-CC0E07126F9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBD588FC-46BB-47B1-8E9B-CC0E07126F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBD588FC-46BB-47B1-8E9B-CC0E07126F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBD588FC-46BB-47B1-8E9B-CC0E07126F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBD588FC-46BB-47B1-8E9B-CC0E07126F9A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
