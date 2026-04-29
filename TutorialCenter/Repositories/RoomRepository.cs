@@ -4,8 +4,12 @@ namespace TutorialCenter.Repositories;
 
 public class RoomRepository : IRoomRepository{
     private static int _nextId = 1;
-    private readonly List<Room> _room = [];
-    
+    private readonly List<Room> _room = [
+        new Room { Id = 1, Name = "Lab 101", BuildingCode = "A", Floor = 1, Capacity = 20, HasProjector = true, IsActive = true },
+        new Room { Id = 2, Name = "Lab 202", BuildingCode = "A", Floor = 2, Capacity = 30, HasProjector = false, IsActive = true },
+        new Room { Id = 3, Name = "Sala B1", BuildingCode = "B", Floor = 0, Capacity = 15, HasProjector = true, IsActive = false },
+    ];
+
     public IEnumerable<Room> GetRooms() {
         return _room;
     }
