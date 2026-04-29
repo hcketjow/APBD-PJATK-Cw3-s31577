@@ -9,9 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddSingleton<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRoomService, RoomService>();
-builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddSingleton<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 
 var app = builder.Build();
