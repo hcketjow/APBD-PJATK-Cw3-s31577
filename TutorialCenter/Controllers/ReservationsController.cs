@@ -31,8 +31,14 @@ public class ReservationsController(IReservationService reservationService) : Co
     [HttpPost]
     public IActionResult Create([FromBody] CreateReservationDto reservation)
     {
-        var createdReservation = reservationService.Add(reservation);
-        return CreatedAtAction(nameof(GetById), new { id = createdReservation.Id }, createdReservation);
+        try
+        {
+            var createdReservation = reservationService.Add(reservation);
+            return CreatedAtAction(nameof(GetById), new { id = createdReservation.Id }, createdReservation);
+        }
+        catch (RoomNotFoundException e) { return NotFound(e.Message); }
+        catch (RoomNotActiveException e) { return BadRequest(e.Message); }
+        catch (ReservationConflictException e) { return Conflict(e.Message); }
     }
     
     [HttpPut("{id:int}")]

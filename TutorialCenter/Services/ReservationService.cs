@@ -5,7 +5,7 @@ using TutorialCenter.Repositories;
 
 namespace TutorialCenter.Services;
 
-public class ReservationService(IReservationRepository reservationRepository) : IReservationService {
+public class ReservationService(IReservationRepository reservationRepository, IRoomRepository roomRepository) : IReservationService {
     public IEnumerable<ReservationDto> GetAll(string? reservations)
     {
         return (string.IsNullOrEmpty(reservations)
@@ -21,6 +21,17 @@ public class ReservationService(IReservationRepository reservationRepository) : 
 
     public ReservationDto Add(CreateReservationDto reservation)
     {
+        var room = roomRepository.GetRoomById(reservation.RoomId);
+        if (room is null)
+            throw new RoomNotFoundException(reservation.RoomId);
+        if (!room.IsActive)
+            throw new RoomNotActiveException(reservation.RoomId);
+        var conflict = reservationRepository.GetReservations().Any(r => r.RoomId == reservation.RoomId
+            && r.StartTime.Date == reservation.StartTime.Date
+            && r.StartTime < reservation.EndTime
+            && r.EndTime > reservation.StartTime);
+        if (conflict)
+            throw new ReservationConflictException();
         var reservationToAdd = reservation.ToDomain();
         reservationRepository.AddReservation(reservationToAdd);
         return reservationToAdd.ToDto();
