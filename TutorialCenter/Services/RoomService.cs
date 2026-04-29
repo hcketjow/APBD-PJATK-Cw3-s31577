@@ -1,4 +1,6 @@
 ﻿using TutorialCenter.DTOs;
+using TutorialCenter.Exceptions;
+using TutorialCenter.Mappers;
 using TutorialCenter.Repositories;
 
 namespace TutorialCenter.Services;
@@ -6,26 +8,36 @@ namespace TutorialCenter.Services;
 public class RoomService(IRoomRepository roomRepository) : IRoomService {
     public IEnumerable<RoomDto> GetAll(string? rooms)
     {
-        throw new NotImplementedException();
+        return (string.IsNullOrEmpty(rooms)
+            ? roomRepository.GetRooms()
+            : roomRepository.GetByName(rooms)).Select(room => room.ToDo());
     }
 
     public RoomDto GetById(int id)
     {
-        throw new NotImplementedException();
+        var room = roomRepository.GetRoomById(id);
+        return (room is null) ? throw new RoomNotFoundException(id) : room.ToDo();
     }
 
     public RoomDto Add(CreateRoomDto room)
     {
-        throw new NotImplementedException();
+        var roomToAdd = room.ToDomain();
+        roomRepository.AddRoom(roomToAdd);
+        return roomToAdd.ToDo();
     }
 
     public RoomDto Update(int id, UpdateRoomDto room)
     {
-        throw new NotImplementedException();
+        var roomToUpdate = room.ToDomain();
+        roomToUpdate.Id = id;
+        return !roomRepository.UpdateRoom(roomToUpdate) ? throw new RoomNotFoundException(id) : roomToUpdate.ToDo();
     }
 
     public void Remove(int id)
     {
-        throw new NotImplementedException();
+        var roomToRemove = roomRepository.GetRoomById(id);
+        if (roomToRemove is null)
+            throw new RoomNotFoundException(id);
+        roomRepository.RemoveRoom(roomToRemove);
     }
 }
