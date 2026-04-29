@@ -13,6 +13,11 @@ public class RoomRepository : IRoomRepository{
     public IEnumerable<Room> GetByName(string name) {
         return  _room.Where(x => x.Name == name);
     }
+    
+    public IEnumerable<Room> GetByBuildingCode(string? buildingCode)
+    {
+        return _room.Where(x => x.BuildingCode == buildingCode);
+    }
 
     public Room? GetRoomById(int id) {
         return _room.FirstOrDefault(x => x.Id == id);

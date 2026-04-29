@@ -19,6 +19,12 @@ public class RoomService(IRoomRepository roomRepository) : IRoomService {
         return (room is null) ? throw new RoomNotFoundException(id) : room.ToDo();
     }
 
+    public IEnumerable<RoomDto> GetByBuildingCode(string? buildingCode)
+    {
+        var rooms = roomRepository.GetByBuildingCode(buildingCode);
+        return !rooms.Any() ? throw new RoomNotFoundException(buildingCode!) : rooms.Select(room => room.ToDo());
+    }
+
     public RoomDto Add(CreateRoomDto room)
     {
         var roomToAdd = room.ToDomain();
