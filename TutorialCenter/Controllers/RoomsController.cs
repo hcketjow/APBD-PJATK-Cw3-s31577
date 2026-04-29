@@ -9,14 +9,12 @@ namespace TutorialCenter.Controllers;
 [Route("api/[controller]")]
 public class RoomsController(IRoomService roomService) : ControllerBase
 {
-    // GET /api/rooms -> zwraca wszystkie sale
     [HttpGet]
-    public IActionResult GetAll([FromQuery] string? rooms)
+    public IActionResult GetAll([FromQuery] RoomQueryDto query)
     {
-        return Ok(roomService.GetAll(rooms));
+        return Ok(roomService.GetAll(query));
     }
     
-    // GET /api/rooms/{id} -> Zwraca pojedynczą salę po identyfikatorze
     [HttpGet("{id:int}")]
     public IActionResult GetById([FromRoute] int id)
     {
@@ -30,7 +28,6 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         }
     }
     
-    // GET /api/rooms/building/{buildingCode} -> Zwraca sale z wybranego budynku
     [HttpGet("buildings/{buildingCode}")]
     public IActionResult GetByBuildingCode([FromRoute] string buildingCode)
     {
@@ -44,14 +41,6 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         }
     }
     
-    // GET /api/rooms?minCapacity=20&hasProjector=true&activeOnly=true -> Zwraca sale przefiltrowane po query stringu
-    [HttpGet]
-    public IActionResult GetAll([FromQuery] RoomQueryDto query)
-    {
-        return Ok(roomService.GetAll(query));
-    }
-    
-    //POST /api/rooms -> Dodaje nową salę
     [HttpPost]
     public IActionResult Add([FromBody] CreateRoomDto room)
     {
@@ -59,7 +48,6 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = createdRoom.Id }, createdRoom);
     }
     
-    //PUT /api/rooms/{id} -> Aktualizuje pełne dane sali
     [HttpPut("{id:int}")]
     public IActionResult Update([FromRoute] int id, [FromBody] UpdateRoomDto room)
     {
@@ -72,7 +60,6 @@ public class RoomsController(IRoomService roomService) : ControllerBase
         }
     }
     
-    //DELETE /api/rooms/{id} Usuwa salę
     [HttpDelete("{id:int}")]
     public IActionResult Delete([FromRoute] int id)
     {
