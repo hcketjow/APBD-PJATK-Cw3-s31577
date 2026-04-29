@@ -14,7 +14,7 @@ public static class ReservationMappingExtensions {
             Topic =  reservationDto.Topic,
             StartTime = reservationDto.StartTime,
             EndTime = reservationDto.EndTime,
-            ReservationStatus = Reservation.Status.planned
+            Status = reservationDto.Status
         };
     }
 
@@ -27,7 +27,7 @@ public static class ReservationMappingExtensions {
             Topic =  createReservation.Topic,
             StartTime = createReservation.StartTime,
             EndTime = createReservation.EndTime,
-            ReservationStatus = Reservation.Status.planned
+            Status = createReservation.ReservationStatus
         };
     }
 
@@ -40,7 +40,7 @@ public static class ReservationMappingExtensions {
             Topic =  updateReservationDto.Topic,
             StartTime = updateReservationDto.StartTime,
             EndTime = updateReservationDto.EndTime,
-            ReservationStatus = Reservation.Status.planned
+            Status = updateReservationDto.ReservationStatus
         };
     }
 
@@ -54,7 +54,7 @@ public static class ReservationMappingExtensions {
             Topic =  reservation.Topic,
             StartTime = reservation.StartTime,
             EndTime = reservation.EndTime,
-            ReservationStatus = ReservationStatus.Planned
+            Status = reservation.Status
         };
     }
 }

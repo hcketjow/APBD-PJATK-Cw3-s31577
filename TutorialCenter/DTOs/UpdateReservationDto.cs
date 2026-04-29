@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TutorialCenter.Models;
 
 namespace TutorialCenter.DTOs;
 

@@ -10,8 +10,8 @@ public class ReservationRepository : IReservationRepository {
         return _reservations;
     }
 
-    public IEnumerable<Reservation> GetReservationsByStartDate(DateTime date){
-        return _reservations.Where(x => x.StartTime == date);
+    public IEnumerable<Reservation> GetReservationsByTopic(string? topic){
+        return _reservations.Where(x => x.Topic == topic);
     }
 
     public Reservation? GetReservationById(int id) {
@@ -32,7 +32,7 @@ public class ReservationRepository : IReservationRepository {
         existing.RoomId = reservation.RoomId;
         existing.OrganizerName = reservation.OrganizerName;
         existing.Topic =  reservation.Topic;
-        existing.ReservationStatus = reservation.ReservationStatus;
+        existing.Status = reservation.Status;
         return true;
     }
 

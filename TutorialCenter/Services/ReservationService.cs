@@ -6,11 +6,11 @@ using TutorialCenter.Repositories;
 namespace TutorialCenter.Services;
 
 public class ReservationService(IReservationRepository reservationRepository) : IReservationService {
-    public IEnumerable<ReservationDto> GetAll(DateTime? date)
+    public IEnumerable<ReservationDto> GetAll(string? reservations)
     {
-        return (date.HasValue ? reservationRepository.GetReservationsByStartDate(date.Value)
-                : reservationRepository.GetReservations())
-            .Select(reservation => reservation.ToDto());
+        return (string.IsNullOrEmpty(reservations)
+            ? reservationRepository.GetReservations()
+            : reservationRepository.GetReservationsByTopic(reservations)).Select(reservations => reservations.ToDto());
     }
 
     public ReservationDto GetById(int id)
@@ -41,5 +41,17 @@ public class ReservationService(IReservationRepository reservationRepository) : 
         if (reservationToRemove is null)
             throw new ReservationNotFoundException(id);
         reservationRepository.RemoveReservation(reservationToRemove);
+    }
+    
+    public IEnumerable<ReservationDto> GetAll(ReservationQueryDto query)
+    {
+        var reservations = reservationRepository.GetReservations();
+        if (query.Date.HasValue)
+            reservations = reservations.Where(reservation => reservation.StartTime.Date == query.Date.Value.Date);
+        if (query.Status.HasValue)
+            reservations = reservations.Where(reservation => reservation.Status == query.Status.Value);
+        if (query.RoomId.HasValue)
+            reservations = reservations.Where(reservation => reservation.RoomId == query.RoomId.Value);
+        return reservations.Select(reservation => reservation.ToDto());
     }
 }

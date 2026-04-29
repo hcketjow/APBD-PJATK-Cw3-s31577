@@ -4,7 +4,7 @@ namespace TutorialCenter.Repositories;
 
 public interface IReservationRepository {
     IEnumerable<Reservation> GetReservations();
-    IEnumerable<Reservation> GetReservationsByStartDate(DateTime date);
+    IEnumerable<Reservation> GetReservationsByTopic(string? topic);
     Reservation? GetReservationById(int id);
     void AddReservation(Reservation reservation);
     bool UpdateReservation(Reservation reservation);

@@ -45,6 +45,11 @@ public class RoomsController(IRoomService roomService) : ControllerBase
     }
     
     // GET /api/rooms?minCapacity=20&hasProjector=true&activeOnly=true -> Zwraca sale przefiltrowane po query stringu
+    [HttpGet]
+    public IActionResult GetAll([FromQuery] RoomQueryDto query)
+    {
+        return Ok(roomService.GetAll(query));
+    }
     
     //POST /api/rooms -> Dodaje nową salę
     [HttpPost]

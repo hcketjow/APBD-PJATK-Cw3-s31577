@@ -9,4 +9,5 @@ public interface IRoomService {
     RoomDto Add(CreateRoomDto room);
     RoomDto Update(int id, UpdateRoomDto room);
     void Remove(int id);
+    IEnumerable<RoomDto> GetAll(RoomQueryDto query);
 }

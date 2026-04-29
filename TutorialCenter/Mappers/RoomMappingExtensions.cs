@@ -44,7 +44,7 @@ public static class RoomMappingExtensions {
         };
     }
     
-    public static RoomDto ToDo(this Room room)
+    public static RoomDto ToDto(this Room room)
     {
         return new RoomDto {
             Id = room.Id,
